@@ -5,7 +5,31 @@
   set_fact:
     http_proxy: "{{ proxy_server }}"
 
-- name: "Configure system wide proxy configuration settings in /etc/profile.d/ [ http_proxy, https_proxy, ftp_proxy ] etc in"
+#- name: "If proxy_client_no_proxy_hosts notset set it to an empty list"
+#  set_fact:
+#    proxy_client_no_proxy_hosts: []
+#  when: proxy_client_no_proxy_hosts is not defined
+#
+#- name: "If 127.0.0.1 & localhost not in noproxy_hosts or proxy_client_no_proxy_hosts - append it"
+#  set_fact:
+#    proxy_client_no_proxy_hosts:
+#      - 127.0.0.1
+#      - localhost
+#  when: ((noproxy_hosts is defined) and ('127.0.0.1' not in noproxy_hosts)) or ('127.0.0.1' not in proxy_client_no_proxy_hosts)
+#
+#- name: "merge noproxy_hosts (if defined) with proxy_client_no_proxy_hosts"
+#  set_fact:
+#    proxy_client_no_proxy_hosts: "{{ noproxy_hosts }} + {{ proxy_client_no_proxy_hosts }}"
+#  when: (noproxy_hosts is defined)
+#
+#- name: "Filter duplicates"
+#  set_fact:
+#    proxy_client_no_proxy_hosts: "{{ proxy_client_no_proxy_hosts | unique }}"
+#
+#- debug: var=proxy_client_no_proxy_hosts
+
+
+- name: "Configure system wide proxy configuration settings in /etc/profile.d/ [ http_proxy, https_proxy, ftp_proxy, no_proxy ] etc in"
   template:
     src: "proxy.sh.j2"
     dest: "/etc/profile.d/proxy.sh"
