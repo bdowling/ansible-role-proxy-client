@@ -42,8 +42,8 @@
   - name: "redhat disable fastmirror"
     lineinfile:
       dest: /etc/yum/pluginconf.d/fastestmirror.conf
-      regexp: 'enabled=1'
-      line: 'enabled=0'
+      regexp: "^enabled="
+      line: "enabled=0"
 
 #  - find:
 #      paths: "/etc/yum.repos.d"
@@ -56,7 +56,7 @@
     lineinfile:
       dest: /etc/yum.conf
       state: present
-      regexp: "^proxy=*"
+      regexp: "^proxy="
       insertafter: EOF
       line: "proxy={{ http_proxy }}"
 #    ignore_errors: yes
