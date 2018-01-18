@@ -57,7 +57,7 @@
       dest: /etc/yum.conf
       state: present
       regexp: "^proxy="
-      insertafter: EOF
+      insertafter: "^#\\s*proxy"
       line: "proxy={{ http_proxy }}"
 #    ignore_errors: yes
 
